@@ -14,7 +14,7 @@ const HomeScreen = ({ navigation }) => {
 
     function launcChangePinWidget() {
         NativePomeloCardsModule.launchChangePinWidget(constants.cardId).then(res => {
-            // Sensitive changed pin
+            // Pin change succeed
          })
         .catch(e => { alert(`Change pin failed with error: ${e.toString()}`) })
     }
