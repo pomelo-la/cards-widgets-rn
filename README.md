@@ -1,35 +1,41 @@
 # Getting started
 
-* [Setup](#setup)
-  1. Setup iOS workspace
-  2. Setup React Native
-* [Configuration](#configuration)
-  1. Authentication
-  2. Theme
-* [Usage](#usage)
-  1. Setup
-  2. Card widget
-  3. Card bottom sheet widget
-  4. Activate card widget
-  5. Change pin widget
+- [Setup Project](#setup)
+    - [Setup iOS workspace](#setup-ios)
+    - [Setup React Native](#setup-rn)
+- [Configuration](#configuration)
+    - [Authentication](#authentication)
+    - [Theme](#theme)
+- [Usage](#usage)
+    - [Setup SDK](#setup-sdk)
+    - [Card widget](#widget-card)
+    - [Card bottom sheet widget](#widget-card-bottom-sheet)
+    - [Activate card widget](#widget-activate-card)
+    - [Change pin widget](#widget-change-pin)
 
-# Setup
+# Setup Project
 
 In this guide we will explain how to setup iOS PomeloCardsSDK on a React Native project.
 
 ## 1. Setup iOS workspace
 
-First you need to add PomeloCardsSDK on the iOS workspace (ios/ProjectName.xcworkspace) using Swift Package Dependency.
-Select you project, go to `Package Dependencies` and add `git@github.com:pomelo-la/cards-ios.git`
-![Add SP Dependency](./documentation/ios-sp-dependency.jpg)
+First you need to add PomeloCardsSDK on the iOS workspace  (ios/ProjectName.xcworkspace) using Swift Package Dependency.
 
-Setup minimum deployment target to iOS 13.0 or later
+- Select you project, go to `Package Dependencies` and add `git@github.com:pomelo-la/cards-ios.git`
+
+![Add SP Dependency 1](./documentation/ios-sp-dependency-1.jpg)
+![Add SP Dependency 2](./documentation/ios-sp-dependency-2.jpg)
+
+- Setup minimum deployment target to iOS 13.0 or later
+
 ![Setup minimum deployment](./documentation/ios-min-deploy.jpg)
 
-Setup `NSFaceIDUsageDescription` on info.plist with the apropriate message. Ex: `$(PRODUCT_NAME) uses Face ID to validate your identity`
+- Setup `NSFaceIDUsageDescription` on info.plist with the apropriate message. Ex: `$(PRODUCT_NAME) uses Face ID to validate your identity`
+
 ![Setup NSFaceIDUsageDescription](./documentation/ios-faceid.jpg)
 
-Drag and drop from the demo project the folder `PomeloReactNativeBridge` to your own ios workspace
+- Drag and drop from the demo project the folder `PomeloReactNativeBridge` to your own ios workspace
+
 ![Copy iOS files](./documentation/ios-files.jpg)
 
 Xcode should prompt to add a Bridging-Header file automatically once you drag and drop the files, you must accept it:
@@ -69,15 +75,15 @@ Now you're all set, you can see examples of how you could call iOS Native Module
     }
   }
 ```
-## 1. Authorization
+## Authorization
 To initialize Pomelo Cards SDK, we need to provide an end user token. All the logic is implemented in swift on the iOS side, you can check how to do that here: https://github.com/pomelo-la/cards-ios/tree/feature/documentation#3-authorization
 
-## 2. Theme
+## Theme
 To customize the iOS theme you should setup your own theme as explained here: https://github.com/pomelo-la/cards-ios/tree/feature/documentation#customizing
 
 # Usage
 
-## 1. Setup
+## Setup SDK
 When using the SDK you should first call the setup method from the react native side. This method must be called before launching any widget.
 ```
 const App = () => {
@@ -86,11 +92,26 @@ const App = () => {
   }, []);
 ```
 
-## 2. Card widget
-An example of how you can insert PomeloCardView on a React Native one is shown on CardWidgetScreen.js
+## Card widget
+An example of how you can insert PomeloCardView on a React Native one is shown on `screens/CardWidgetScreen.js`
+```
+return (
+        <SafeAreaView style={styles.container}>
+            <PomeloCardView 
+                style={styles.card}
+                ref={cardViewRef}
+                setupParams={{cardholderName:constants.cardholderName, lastFourCardDigits:constants.lastFourCardDigits, image: constants.image}}
+                />
+              <Button
+                onPress={() => showSensitiveData()}
+                title="Display sensitive data"
+                />
+        </SafeAreaView>
+    );
+```
 ![Card Widget](./documentation/card-widget.jpg)
 
-## 3. Card bottom sheet widget
+## Card bottom sheet widget
 An example of how to launch card bottom sheet widget is shown on HomeScreen.js
 ```
     function launchCardListWidget() {
@@ -102,7 +123,7 @@ An example of how to launch card bottom sheet widget is shown on HomeScreen.js
 ```
 ![Card bottom sheet widget](./documentation/card-bottom-sheet.jpg)
 
-## 4. Activate card widget
+## Activate card widget
 An example of how to launch activate card widget is shown on HomeScreen.js
 ```
     function launchActivateCardWidget() {
@@ -114,7 +135,7 @@ An example of how to launch activate card widget is shown on HomeScreen.js
 ```
 ![Card bottom sheet widget](./documentation/activate-card.jpg)
 
-## 5. Change pin widget
+## Change pin widget
 An example of how to launch change pin widget is shown on HomeScreen.js
 ```
     function launcChangePinWidget() {
