@@ -17,7 +17,7 @@
 
 In this guide we will explain how to setup iOS PomeloCardsSDK on a React Native project.
 
-## 1. Setup iOS workspace
+## Setup iOS workspace
 
 First you need to add PomeloCardsSDK on the iOS workspace  (ios/ProjectName.xcworkspace) using Swift Package Dependency.
 
@@ -38,10 +38,11 @@ First you need to add PomeloCardsSDK on the iOS workspace  (ios/ProjectName.xcwo
 
 ![Copy iOS files](./documentation/ios-files.jpg)
 
-Xcode should prompt to add a Bridging-Header file automatically once you drag and drop the files, you must accept it:
- ![Bridging Header](./documentation/bridging-header.jpg)
+Xcode should prompt to add a Bridging-Header file automatically once you drag and drop the files, you must accept it.
 
 If that's not the case you must create it manually. (https://developer.apple.com/documentation/swift/importing-objective-c-into-swift)
+
+ ![Bridging Header](./documentation/bridging-header.jpg)
 
 You must add the imports from the demo project on your Bridging-Header.h so Objective-C code becomes visible to the Swift one.
 
@@ -52,7 +53,7 @@ You must add the imports from the demo project on your Bridging-Header.h so Obje
 #import "RCTSwiftLog.h"
 ```
 
-## 2. Setup React Native
+## Setup React Native
 
 So we have configured PomeloSDK on the iOS side to make it available on React Native, now we will use it.
  
