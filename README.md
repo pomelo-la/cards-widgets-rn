@@ -30,7 +30,7 @@ First you need to add PomeloCardsSDK on the iOS workspace  (ios/ProjectName.xcwo
 
 ![Setup minimum deployment](./documentation/ios-min-deploy.jpg)
 
-- Setup `NSFaceIDUsageDescription` on info.plist with the apropriate message. Ex: `$(PRODUCT_NAME) uses Face ID to validate your identity`
+- Setup `NSFaceIDUsageDescription` on info.plist with the appropriate message. Ex: `$(PRODUCT_NAME) uses Face ID to validate your identity`
 
 ![Setup NSFaceIDUsageDescription](./documentation/ios-faceid.jpg)
 
@@ -38,7 +38,7 @@ First you need to add PomeloCardsSDK on the iOS workspace  (ios/ProjectName.xcwo
 
 ![Copy iOS files](./documentation/ios-files.jpg)
 
-Xcode should prompt to add a Bridging-Header file automatically once you drag and drop the files, you must accept it.
+Xcode should prompt you to add a Bridging-Header file automatically once you drag and drop the files, you must accept it.
 
 If that's not the case you must create it manually. (https://developer.apple.com/documentation/swift/importing-objective-c-into-swift)
 
