@@ -77,7 +77,7 @@ Now you're all set, you can see examples of how you could call iOS Native Module
   }
 ```
 ## Authorization
-To initialize Pomelo Cards SDK, we need to provide an end user token. All the logic is implemented in swift on the iOS side, you can check how to do that here: https://github.com/pomelo-la/cards-ios/tree/feature/documentation#3-authorization
+To initialize Pomelo Cards SDK, we need to provide an end user token. All the logic is implemented in swift on the iOS side, you can check how to do that here: <https://github.com/pomelo-la/cards-ios/tree/feature/documentation#3-authorization>
 
 ## Theme
 To customize the iOS theme you should setup your own theme as explained here: https://github.com/pomelo-la/cards-ios/tree/feature/documentation#customizing
