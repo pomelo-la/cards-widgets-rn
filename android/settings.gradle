@@ -1,3 +1,27 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        google()
+        mavenCentral()
+    }
+}
+
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.PREFER_SETTINGS)
+    repositories {
+        google()
+        mavenCentral()
+        maven {
+            name = "Pomelo GitHubPackages Releases"
+            url = uri("https://maven.pkg.github.com/pomelo-la/android-public")
+            credentials {
+                username = System.getenv("username")
+                password = System.getenv("access_token")
+            }
+        }
+    }
+}
+
 rootProject.name = 'PomeloCardsReactNativeDemo'
 apply from: file("../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesSettingsGradle(settings)
 include ':app'

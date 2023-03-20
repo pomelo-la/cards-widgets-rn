@@ -4,16 +4,17 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.facebook.react.bridge.NativeModule;
+import com.pomelocardsreactnativedemo.data.repositories.UserTokenRepository;
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
-import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
-import java.util.Map;
-import java.util.HashMap;
+import com.pomelo.cards.widgets.PomeloCards;
+import com.pomelo.cards.widgets.Configuration;
+import com.pomelocardsreactnativedemo.data.entities.UserTokenBody;
 
 public class PomeloCardsModule extends ReactContextBaseJavaModule {
+    private UserTokenRepository repository = new UserTokenRepository();
     PomeloCardsModule(ReactApplicationContext context) {
         super(context);
     }
@@ -27,6 +28,11 @@ public class PomeloCardsModule extends ReactContextBaseJavaModule {
     @ReactMethod
     public void setupSDK(String email) {
         Log.d("PomeloCardsModule", "SetupSDK event called with email: " + email);
+        UserTokenBody body = new UserTokenBody(BuildConfig.EMAIL);
+        PomeloCards.INSTANCE.register(
+                Configuration(repository.getUserToken(body)),
+        this
+        );
     }
 
     @ReactMethod

@@ -102,6 +102,20 @@ android {
         versionName "1.0"
     }
 
+    buildFeatures {
+        buildConfig true
+    }
+
+    flavorDimensions "default"
+    productFlavors {
+        stage {
+            dimension = "default"
+            buildConfigField("String", "CARD_ID", '"CARD_ID"')
+            buildConfigField("String", "EMAIL", '"EMAIL"')
+            buildConfigField("String", "API_BASE_URL", '"API_BASE_URL"')
+        }
+    }
+
     splits {
         abi {
             reset()
@@ -149,6 +163,8 @@ android {
 }
 
 dependencies {
+    implementation("com.pomelo:cards-widgets:1.0.1-SNAPSHOT")
+
     // The version of react-native is set by the React Native Gradle Plugin
     implementation("com.facebook.react:react-android")
 
