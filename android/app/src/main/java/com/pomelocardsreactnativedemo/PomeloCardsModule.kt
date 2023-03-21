@@ -1,53 +1,66 @@
-package com.pomelocardsreactnativedemo;
+package com.pomelocardsreactnativedemo
 
-import android.util.Log;
+import android.util.Log
+import com.facebook.react.bridge.Promise
+import com.facebook.react.bridge.ReactApplicationContext
+import com.facebook.react.bridge.ReactContextBaseJavaModule
+import com.facebook.react.bridge.ReactMethod
+import com.pomelo.cards.widgets.CardsResult
+import com.pomelo.cards.widgets.Configuration
+import com.pomelo.cards.widgets.OnResultListener
+import com.pomelo.cards.widgets.PomeloCards
+import com.pomelo.cards.widgets.ui.card.bottomsheet.PomeloCardBottomSheet
+import com.pomelocardsreactnativedemo.data.entities.UserTokenBody
+import com.pomelocardsreactnativedemo.data.repositories.UserTokenRepository
+import okhttp3.Dispatcher
 
-import androidx.annotation.NonNull;
+class PomeloCardsModule internal constructor(
+    val context: ReactApplicationContext,
+    val userTokenRepository: UserTokenRepository,
+) :
+    ReactContextBaseJavaModule(context) {
 
-import com.pomelocardsreactnativedemo.data.repositories.UserTokenRepository;
-import com.facebook.react.bridge.Promise;
-import com.facebook.react.bridge.ReactApplicationContext;
-import com.facebook.react.bridge.ReactContextBaseJavaModule;
-import com.facebook.react.bridge.ReactMethod;
-import com.pomelo.cards.widgets.PomeloCards;
-import com.pomelo.cards.widgets.Configuration;
-import com.pomelocardsreactnativedemo.data.entities.UserTokenBody;
-
-public class PomeloCardsModule extends ReactContextBaseJavaModule {
-    private UserTokenRepository repository = new UserTokenRepository();
-    PomeloCardsModule(ReactApplicationContext context) {
-        super(context);
-    }
-
-    @NonNull
-    @Override
-    public String getName() {
-        return "PomeloCardsModule";
-    }
-
-    @ReactMethod
-    public void setupSDK(String email) {
-        Log.d("PomeloCardsModule", "SetupSDK event called with email: " + email);
-        UserTokenBody body = new UserTokenBody(BuildConfig.EMAIL);
-        PomeloCards.INSTANCE.register(
-                Configuration(repository.getUserToken(body)),
-        this
-        );
+    override fun getName(): String {
+        return "PomeloCardsModule"
     }
 
     @ReactMethod
-    public void launchCardListWidget(String cardId, Promise promise) {
-        Log.d("PomeloCardsModule", "Launch card list event called with cardId: " + cardId);
+    fun setupSDK(email: String) {
+        val configuration = Configuration {
+            userTokenRepository.getUserToken(UserTokenBody(email))
+        }
+        PomeloCards.register(configuration, context.applicationContext)
+        Log.d("PomeloCardsModule", "SetupSDK event called with email: $email")
     }
 
     @ReactMethod
-    public void launchChangePinWidget(String cardId, Promise promise) {
-        Log.d("PomeloCardsModule", "Launch change pin event called with cardId: " + cardId);
+    fun launchCardListWidget(cardId: String, promise: Promise?) {
+        Log.d("PomeloCardsModule", "Launch card list event called with cardId: $cardId")
     }
 
     @ReactMethod
-    public void launchActivateCardWidget(Promise promise) {
-        Log.d("PomeloCardsModule", "Launch activate card event called");
+    fun launchChangePinWidget(cardId: String, promise: Promise?) {
+        PomeloCardBottomSheet.showSensitiveData(context.applicationContext,
+            cardId,
+            "DIEGO"
+        ) { result, _ ->
+            when (result) {
+                CardsResult.NETWORK_ERROR -> {
+                    Log.d("PomeloCardsModule", "ERROR")
+                }
+                CardsResult.BIOMETRIC_ERROR -> {
+                    Log.d("PomeloCardsModule", "ASDF")
+                }
+                CardsResult.SUCCESS -> {
+                    Log.d("PomeloCardsModule", "DFDSF")
+                }
+            }
+        }
+        Log.d("PomeloCardsModule", "Launch change pin event called with cardId: $cardId")
     }
 
+    @ReactMethod
+    fun launchActivateCardWidget(promise: Promise?) {
+
+    }
 }

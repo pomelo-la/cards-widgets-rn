@@ -1,29 +1,23 @@
-package com.pomelocardsreactnativedemo;
+package com.pomelocardsreactnativedemo
 
-import com.facebook.react.ReactPackage;
-import com.facebook.react.bridge.NativeModule;
-import com.facebook.react.bridge.ReactApplicationContext;
-import com.facebook.react.uimanager.ViewManager;
+import com.facebook.react.ReactPackage
+import com.facebook.react.bridge.NativeModule
+import com.facebook.react.bridge.ReactApplicationContext
+import com.facebook.react.uimanager.ViewManager
+import com.pomelocardsreactnativedemo.data.repositories.UserTokenRepository
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+class PomeloCardsPackage(val userTokenRepository: UserTokenRepository) : ReactPackage {
 
-public class PomeloCardsPackage implements ReactPackage {
 
-    @Override
-    public List<ViewManager> createViewManagers(ReactApplicationContext reactContext) {
-        return Collections.emptyList();
+    override fun createViewManagers(reactContext: ReactApplicationContext): List<ViewManager<*, *>> {
+        return emptyList()
     }
 
-    @Override
-    public List<NativeModule> createNativeModules(
-            ReactApplicationContext reactContext) {
-        List<NativeModule> modules = new ArrayList<>();
-
-        modules.add(new PomeloCardsModule(reactContext));
-
-        return modules;
+    override fun createNativeModules(
+        reactContext: ReactApplicationContext,
+    ): List<NativeModule> {
+        val modules: MutableList<NativeModule> = ArrayList()
+        modules.add(PomeloCardsModule(reactContext, userTokenRepository))
+        return modules
     }
-
 }
