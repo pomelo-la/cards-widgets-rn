@@ -12,7 +12,7 @@ class PomeloCardsPackage(val userTokenRepository: UserTokenRepository) : ReactPa
 
     override fun createViewManagers(
         reactContext: ReactApplicationContext
-    ): MutableList<ViewManager<View, ReactShadowNode<*>>> = mutableListOf()
+    ) = listOf(PomeloCardWidgetViewManager(reactContext))
 
     override fun createNativeModules(
         reactContext: ReactApplicationContext
