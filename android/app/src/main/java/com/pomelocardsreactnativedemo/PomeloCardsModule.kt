@@ -1,18 +1,17 @@
 package com.pomelocardsreactnativedemo
 
 import android.util.Log
-import com.facebook.react.bridge.Promise
-import com.facebook.react.bridge.ReactApplicationContext
-import com.facebook.react.bridge.ReactContextBaseJavaModule
-import com.facebook.react.bridge.ReactMethod
+import androidx.appcompat.app.AppCompatActivity
+import com.facebook.react.bridge.*
 import com.pomelo.cards.widgets.CardsResult
 import com.pomelo.cards.widgets.Configuration
-import com.pomelo.cards.widgets.OnResultListener
 import com.pomelo.cards.widgets.PomeloCards
 import com.pomelo.cards.widgets.ui.card.bottomsheet.PomeloCardBottomSheet
 import com.pomelocardsreactnativedemo.data.entities.UserTokenBody
 import com.pomelocardsreactnativedemo.data.repositories.UserTokenRepository
-import okhttp3.Dispatcher
+import com.pomelocardsreactnativedemo.ui.ActivateCardBottomSheet
+import com.pomelocardsreactnativedemo.ui.ChangePinBottomSheet
+
 
 class PomeloCardsModule(val reactContext: ReactApplicationContext, val userTokenRepository: UserTokenRepository) : ReactContextBaseJavaModule(reactContext) {
     override fun getName() = "PomeloCardsModule"
@@ -23,37 +22,56 @@ class PomeloCardsModule(val reactContext: ReactApplicationContext, val userToken
         val configuration = Configuration {
             userTokenRepository.getUserToken(UserTokenBody(email))
         }
-        PomeloCards.register(configuration, context.applicationContext)
+        PomeloCards.register(configuration, reactContext.applicationContext)
     }
 
     @ReactMethod
     fun launchCardListWidget(cardId: String, promise: Promise?) {
         Log.d("PomeloCardsModule", "Launch card list event called with cardId: $cardId")
-        // PomeloCardBottomSheet.showSensitiveData(context.applicationContext,
-        //     cardId,
-        //     "DIEGO"
-        // ) { result, _ ->
-        //     when (result) {
-        //         CardsResult.NETWORK_ERROR -> {
-        //             Log.d("PomeloCardsModule", "ERROR")
-        //         }
-        //         CardsResult.BIOMETRIC_ERROR -> {
-        //             Log.d("PomeloCardsModule", "ASDF")
-        //         }
-        //         CardsResult.SUCCESS -> {
-        //             Log.d("PomeloCardsModule", "DFDSF")
-        //         }
-        //     }
-        // }
+        reactContext.currentActivity?.let { activity ->
+            UiThreadUtil.runOnUiThread {
+                PomeloCardBottomSheet.showSensitiveData(
+                    activity,
+                    cardId,
+                    ""
+                ) { result, _ ->
+                    when (result) {
+                        CardsResult.SUCCESS -> { promise?.resolve(true) }
+                        else -> { promise?.reject(result.name) }
+                    }
+                }
+            }
+        }
     }
 
     @ReactMethod
     fun launchChangePinWidget(cardId: String, promise: Promise?) {
         Log.d("PomeloCardsModule", "Launch change pin event called with cardId: $cardId")
+        reactContext.currentActivity?.let { activity ->
+            UiThreadUtil.runOnUiThread {
+                ChangePinBottomSheet(cardId) { result, _ ->
+                    when (result) {
+                        CardsResult.SUCCESS -> { promise?.resolve(true) }
+                        else -> { promise?.reject(result.name) }
+                    }
+                }.show(activity as AppCompatActivity)
+            }
+        }
     }
 
     @ReactMethod
     fun launchActivateCardWidget(promise: Promise?) {
         Log.d("PomeloCardsModule", "Launch activate card event called")
+        reactContext.currentActivity?.let { activity ->
+            UiThreadUtil.runOnUiThread {
+                ActivateCardBottomSheet() { result, _ ->
+                    when (result) {
+                        CardsResult.SUCCESS -> { promise?.resolve(true) }
+                        else -> { promise?.reject(result.name) }
+                    }
+                }.show(activity as AppCompatActivity)
+            }
+        }
+
     }
 }

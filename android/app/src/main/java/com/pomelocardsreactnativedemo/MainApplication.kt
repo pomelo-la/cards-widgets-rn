@@ -10,6 +10,7 @@ import com.facebook.react.PackageList
 import com.facebook.soloader.SoLoader
 import com.pomelocardsreactnativedemo.data.repositories.UserTokenRepository
 import com.pomelocardsreactnativedemo.di.MainModule
+import org.koin.android.ext.android.get
 import org.koin.android.ext.android.inject
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -18,7 +19,7 @@ import org.koin.core.context.loadKoinModules
 import org.koin.core.context.startKoin
 
 class MainApplication : Application(), ReactApplication {
-    val userTokenRepository: UserTokenRepository by inject()
+    lateinit var userTokenRepository: UserTokenRepository
 
     private val mReactNativeHost: ReactNativeHost = object : DefaultReactNativeHost(this) {
         override fun getUseDeveloperSupport(): Boolean {
@@ -54,8 +55,9 @@ class MainApplication : Application(), ReactApplication {
             // If you opted-in for the New Architecture, we load the native entry point for this app.
             load()
         }
-        ReactNativeFlipper.initializeFlipper(this, reactNativeHost.reactInstanceManager)
         startAppKoin()
+        userTokenRepository = get()
+        ReactNativeFlipper.initializeFlipper(this, reactNativeHost.reactInstanceManager)
     }
 
     private fun startAppKoin() {
