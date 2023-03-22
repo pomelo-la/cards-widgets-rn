@@ -27,6 +27,7 @@ class MainApplication : Application(), ReactApplication {
 
         override fun getPackages(): List<ReactPackage> {
             val packages: MutableList<ReactPackage> = PackageList(this).packages
+
             // Packages that cannot be autolinked yet can be added manually here, for example:
             packages.add(PomeloCardsPackage(userTokenRepository))
             return packages
