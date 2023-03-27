@@ -18,7 +18,6 @@ class PomeloCardsModule(val reactContext: ReactApplicationContext, val userToken
 
     @ReactMethod
     fun setupSDK(email: String) {
-        Log.d("PomeloCardsModule", "Setup SDK called with email: $email")
         val configuration = Configuration {
             userTokenRepository.getUserToken(UserTokenBody(email))
         }
@@ -27,7 +26,6 @@ class PomeloCardsModule(val reactContext: ReactApplicationContext, val userToken
 
     @ReactMethod
     fun launchCardListWidget(cardId: String, promise: Promise?) {
-        Log.d("PomeloCardsModule", "Launch card list event called with cardId: $cardId")
         reactContext.currentActivity?.let { activity ->
             UiThreadUtil.runOnUiThread {
                 PomeloCardBottomSheet.showSensitiveData(
@@ -46,7 +44,6 @@ class PomeloCardsModule(val reactContext: ReactApplicationContext, val userToken
 
     @ReactMethod
     fun launchChangePinWidget(cardId: String, promise: Promise?) {
-        Log.d("PomeloCardsModule", "Launch change pin event called with cardId: $cardId")
         reactContext.currentActivity?.let { activity ->
             UiThreadUtil.runOnUiThread {
                 ChangePinBottomSheet(cardId) { result, _ ->
@@ -61,7 +58,6 @@ class PomeloCardsModule(val reactContext: ReactApplicationContext, val userToken
 
     @ReactMethod
     fun launchActivateCardWidget(promise: Promise?) {
-        Log.d("PomeloCardsModule", "Launch activate card event called")
         reactContext.currentActivity?.let { activity ->
             UiThreadUtil.runOnUiThread {
                 ActivateCardBottomSheet() { result, _ ->

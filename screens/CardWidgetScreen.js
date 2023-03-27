@@ -1,5 +1,5 @@
 import React, { useRef } from 'react'
-import ReactNative, { Button, SafeAreaView, StyleSheet } from 'react-native';
+import ReactNative, { Button, SafeAreaView, StyleSheet, UIManager } from 'react-native';
 import PomeloCardWidgetViewManager, { PomeloCardView } from '../pomelo_native_modules/PomeloCardWidgetViewManager';
 import * as constants from './constants'
 
