@@ -1,4 +1,4 @@
-package com.pomelocardsreactnativedemo.ui;
+package com.pomelocardsreactnativedemo;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;
