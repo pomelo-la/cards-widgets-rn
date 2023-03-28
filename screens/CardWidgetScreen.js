@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
     width: '100%',
     height: undefined,
-    aspectRatio: 864/534,
+    aspectRatio: 622/384,
     marginBottom: 20
   }
 });
