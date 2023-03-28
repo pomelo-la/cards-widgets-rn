@@ -5,17 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.material.ScaffoldState
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.pomelo.cards.widgets.CardsResult
+import androidx.fragment.app.DialogFragment
 import com.pomelo.cards.widgets.OnResultListener
-import com.pomelo.cards.widgets.ui.activatecard.PomeloActivateCardView
 import com.pomelo.cards.widgets.ui.changepin.PomeloChangePinComposable
-import com.pomelo.cards.widgets.ui.changepin.PomeloChangePinView
 
-class ChangePinBottomSheet(private val cardId: String, private val onResultListener: OnResultListener): BottomSheetDialogFragment() {
+class ChangePinDialog(private val cardId: String, private val onResultListener: OnResultListener): DialogFragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
