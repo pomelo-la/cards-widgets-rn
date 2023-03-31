@@ -1,25 +1,40 @@
 # Getting started
 
-- [Setup Project](#setup)
-    - [Setup iOS workspace](#setup-ios)
-    - [Setup React Native](#setup-rn)
+- [Setup Project](#setup-project)
+    - [Setup React Native](#setup-react-native)
+    - [Setup iOS](#setup-ios)
+    - [Setup Android](#setup-android)
 - [Configuration](#configuration)
-    - [Authentication](#authentication)
-    - [Theme](#theme)
+    - [iOS Configuration](#ios-configuration)
+        - [iOS Authorization](#ios-authorization)
+        - [iOS Theme](#ios-theme)
+    - [Android Configuration](#android-configuration)
+        - [Android Authorization](#android-authorization)
+        - [Android Theme](#android-theme)
 - [Usage](#usage)
     - [Setup SDK](#setup-sdk)
-    - [Card widget](#widget-card)
-    - [Card bottom sheet widget](#widget-card-bottom-sheet)
-    - [Activate card widget](#widget-activate-card)
-    - [Change pin widget](#widget-change-pin)
+    - [Card widget](#card-widget)
+    - [Card bottom sheet widget](#card-bottom-sheet-widget)
+    - [Activate card widget](#activate-card-widget)
+    - [Change pin widget](#change-pin-widget)
 
 # Setup Project
 
-In this guide we will explain how to setup iOS PomeloCardsSDK on a React Native project.
+In this guide we will explain how to setup PomeloCardsSDK on a React Native project by implementing a bridge to iOS and Android native SDKs.
 
-## Setup iOS workspace
+## Setup React Native
 
-First you need to add PomeloCardsSDK on the iOS workspace  (ios/ProjectName.xcworkspace) using Swift Package Dependency.
+You need to drag and drop from the demo project the folder `pomelo_native_modules` to your own one.
+
+![Copy React Native files](./documentation/rn-files.jpg)
+
+That's it on react native side, that implements the bridge to the native modules and components. You can check the official React Native documentation if you wan't to know more about this bridge.
+https://reactnative.dev/docs/native-modules-intro
+
+
+## Setup iOS
+
+You need to add PomeloCardsSDK on your iOS workspace  (ios/ProjectName.xcworkspace) using Swift Package Dependency.
 
 - Select you project, go to `Package Dependencies` and add `git@github.com:pomelo-la/cards-ios.git`
 
@@ -53,17 +68,12 @@ You must add the imports from the demo project on your Bridging-Header.h so Obje
 #import "RCTSwiftLog.h"
 ```
 
-## Setup React Native
-
-So we have configured PomeloSDK on the iOS side to make it available on React Native, now we will use it.
- 
-You need to drag and drop from the demo project the folder `pomelo_native_modules` to your own one.
-
-![Copy React Native files](./documentation/rn-files.jpg)
-
-Now you're all set, you can see examples of how you could call iOS Native Modules on react native side on the demo project.
+## Setup Android
 
 # Configuration
+
+## iOS Configuration
+
 ```
   @objc func setupSDK(_ email: String) {
     //Configure Cards SDK
@@ -76,11 +86,21 @@ Now you're all set, you can see examples of how you could call iOS Native Module
     }
   }
 ```
-## Authorization
-To initialize Pomelo Cards SDK, we need to provide an end user token. All the logic is implemented in swift on the iOS side, you can check how to do that here: <https://github.com/pomelo-la/cards-ios/tree/feature/documentation#3-authorization>
+### iOS Authorization
+To initialize Pomelo Cards SDK, we need to provide an end user token. All the logic is implemented in swift on the iOS side, you can check how to do that on iOS native SDK documentation:
 
-## Theme
-To customize the iOS theme you should setup your own theme as explained here: <https://github.com/pomelo-la/cards-ios/tree/feature/documentation#customizing>
+<https://github.com/pomelo-la/cards-ios/tree/feature/documentation#3-authorization>
+
+### iOS Theme
+To customize the iOS theme you should setup your own theme. You can check how to do that on iOS native SDK documentation:
+
+<https://github.com/pomelo-la/cards-ios/tree/feature/documentation#customizing>
+
+## Android Configuration
+
+### Android Authorization
+
+### Android Theme
 
 # Usage
 
