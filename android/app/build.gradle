@@ -1,3 +1,4 @@
+apply plugin: "kotlin-android"
 apply plugin: "com.android.application"
 apply plugin: "com.facebook.react"
 
@@ -102,6 +103,25 @@ android {
         versionName "1.0"
     }
 
+    buildFeatures {
+        buildConfig true
+        compose = true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion '1.1.1'
+    }
+
+    flavorDimensions "default"
+    productFlavors {
+        stage {
+            dimension = "default"
+            buildConfigField("String", "CARD_ID", '"crd-2KuidxIWWOTNbBHg9c5tRFf672m"')
+            buildConfigField("String", "EMAIL", '"abel@pomelo.la"')
+            buildConfigField("String", "API_BASE_URL", '"https://api-stage.pomelo.la/cards-sdk-be-sample/"')
+        }
+    }
+
     splits {
         abi {
             reset()
@@ -149,6 +169,9 @@ android {
 }
 
 dependencies {
+    implementation("com.pomelo:cards-widgets:1.0.1-SNAPSHOT")
+
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion")
     // The version of react-native is set by the React Native Gradle Plugin
     implementation("com.facebook.react:react-android")
 
