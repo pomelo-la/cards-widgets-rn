@@ -1,4 +1,4 @@
-package com.pomelocardsreactnativedemo.data.entities
+package com.pomelocardsreactnativedemo.bridge.data.entities
 
 import com.squareup.moshi.Json
 

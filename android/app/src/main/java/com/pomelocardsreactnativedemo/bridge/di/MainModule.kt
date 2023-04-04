@@ -1,9 +1,9 @@
-package com.pomelocardsreactnativedemo.di
+package com.pomelocardsreactnativedemo.bridge.di
 
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.pomelocardsreactnativedemo.BuildConfig.API_BASE_URL
-import com.pomelocardsreactnativedemo.data.remote.UserTokenService
-import com.pomelocardsreactnativedemo.data.repositories.UserTokenRepository
+import com.pomelocardsreactnativedemo.bridge.data.remote.UserTokenService
+import com.pomelocardsreactnativedemo.bridge.data.repositories.UserTokenRepository
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import java.util.concurrent.TimeUnit

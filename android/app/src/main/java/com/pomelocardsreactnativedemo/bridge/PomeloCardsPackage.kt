@@ -1,9 +1,9 @@
-package com.pomelocardsreactnativedemo
+package com.pomelocardsreactnativedemo.bridge
 
 import com.facebook.react.ReactPackage
 import com.facebook.react.bridge.NativeModule
 import com.facebook.react.bridge.ReactApplicationContext
-import com.pomelocardsreactnativedemo.data.repositories.UserTokenRepository
+import com.pomelocardsreactnativedemo.bridge.data.repositories.UserTokenRepository
 
 class PomeloCardsPackage(val userTokenRepository: UserTokenRepository) : ReactPackage {
 

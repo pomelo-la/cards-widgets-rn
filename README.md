@@ -98,6 +98,128 @@ To customize the iOS theme you should setup your own theme. You can check how to
 
 ## Android Configuration
 
+You need to import Pomelo Native Android dependency:
+
+https://github.com/pomelo-la/cards-android-demo#1-import-dependency
+
+1 - Setup `settings.gradle`
+
+![Settings gradle](./documentation/android-settings-gradle.jpg)
+
+```
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        google()
+        mavenCentral()
+    }
+}
+
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.PREFER_SETTINGS)
+    repositories {
+        google()
+        mavenCentral()
+        maven {
+            name = "Pomelo GitHubPackages Releases"
+            url = uri("https://maven.pkg.github.com/pomelo-la/android-public")
+            credentials {
+                username = System.getenv("username")
+                password = System.getenv("access_token")
+            }
+        }
+    }
+}
+```
+
+2 - Setup project `build.gradle`
+![Project Build gradle](./documentation/android-project-gradle.jpg)
+
+Add kotlin version to the project build.gradle as the bridge is written in kotlin.
+
+`kotlinVersion = '1.6.10'`
+
+`classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${project.ext.kotlinVersion}")`
+
+3 - Setup module `build.gradle`
+![Module Build gradle](./documentation/android-module-gradle-0.jpg)
+
+![Module Build gradle](./documentation/android-module-gradle-1.jpg)
+
+```
+buildFeatures {
+    buildConfig true
+    compose = true
+}
+
+composeOptions {
+    kotlinCompilerExtensionVersion '1.1.1'
+}
+
+flavorDimensions "default"
+productFlavors {
+    stage {
+        dimension = "default"
+        buildConfigField("String", "API_BASE_URL", '"https://api-stage.pomelo.la/cards-sdk-be-sample/"')
+    }
+}
+```
+
+![Module Build gradle](./documentation/android-module-gradle-2.jpg)
+
+`implementation("com.pomelo:cards-widgets:1.0.1-SNAPSHOT")`
+
+`implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion")`
+
+4 - Copy bridge folder to your project
+Drag and drop bridge package from the demo project to your own
+![Android files](./documentation/android-files.jpg)
+
+Replace the module name with your own. Ex: `com.awesomeproject`
+![Android files replace 1](./documentation/android-files-replace-1.jpg)
+![Android files replace 2](./documentation/android-files-replace-2.jpg)
+
+5 - MainApplication
+
+If your MainApplication is written in Java we need to convert it to Kotlin
+![Android MainApplication 1](./documentation/android-mainapplication-1.jpg)
+
+![Android MainApplication 2](./documentation/android-mainapplication-2.jpg)
+`lateinit var userTokenRepository: UserTokenRepository`
+```
+    override fun getPackages(): List<ReactPackage> {
+        val packages: MutableList<ReactPackage> = PackageList(this).packages
+        packages.add(PomeloCardsPackage(userTokenRepository))
+        return packages
+    }
+```
+![Android MainApplication 3](./documentation/android-mainapplication-3.jpg)
+```
+    startAppKoin()
+    userTokenRepository = get()
+```
+```
+    private fun startAppKoin() {
+        val modules = listOf(MainModule.initModule())
+        GlobalContext.getOrNull()?.apply {
+            loadKoinModules(modules)
+        } ?: startKoin {
+            androidLogger()
+            androidContext(this@MainApplication)
+            modules(modules)
+        }
+    }
+```
+
+6 - Card Image
+Add card image to Android `assets` folder
+![Android Card Image](./documentation/android-card-image.jpg)
+
+#### Known bugs
+We currently have a bug that Android App won't work if it doesn't have a Material Theme. We are working to solve it, if this is an issue for you please contact our support team mobile@pomelo.la
+![Android Bugs](./documentation/android-bug-1.jpg)
+
+
 ### Android Authorization
 
 ### Android Theme

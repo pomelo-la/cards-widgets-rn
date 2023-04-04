@@ -1,6 +1,5 @@
-package com.pomelocardsreactnativedemo
+package com.pomelocardsreactnativedemo.bridge
 
-import android.util.Log
 import com.facebook.react.bridge.*
 import com.facebook.react.uimanager.SimpleViewManager
 import com.facebook.react.uimanager.ThemedReactContext
