@@ -17,6 +17,8 @@
     - [Card bottom sheet widget](#card-bottom-sheet-widget)
     - [Activate card widget](#activate-card-widget)
     - [Change pin widget](#change-pin-widget)
+- [Roadmap](#roadmap)
+
 
 # Setup Project
 
@@ -57,7 +59,7 @@ Xcode should prompt you to add a Bridging-Header file automatically once you dra
 
 If that's not the case you must create it manually. (https://developer.apple.com/documentation/swift/importing-objective-c-into-swift)
 
- ![Bridging Header](./documentation/bridging-header.jpg)
+ ![Bridging Header](./documentation/ios-bridging-header.jpg)
 
 You must add the imports from the demo project on your Bridging-Header.h so Objective-C code becomes visible to the Swift one.
 
@@ -102,7 +104,7 @@ You need to import Pomelo Native Android dependency:
 
 https://github.com/pomelo-la/cards-android-demo#1-import-dependency
 
-1 - Setup `settings.gradle`
+1. Setup `settings.gradle`
 
 ![Settings gradle](./documentation/android-settings-gradle.jpg)
 
@@ -132,7 +134,8 @@ dependencyResolutionManagement {
 }
 ```
 
-2 - Setup project `build.gradle`
+2. Setup project `build.gradle`
+
 ![Project Build gradle](./documentation/android-project-gradle.jpg)
 
 Add kotlin version to the project build.gradle as the bridge is written in kotlin.
@@ -141,8 +144,11 @@ Add kotlin version to the project build.gradle as the bridge is written in kotli
 
 `classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${project.ext.kotlinVersion}")`
 
-3 - Setup module `build.gradle`
+3. Setup module `build.gradle`
+
 ![Module Build gradle](./documentation/android-module-gradle-0.jpg)
+
+`apply plugin: "kotlin-android"`
 
 ![Module Build gradle](./documentation/android-module-gradle-1.jpg)
 
@@ -171,17 +177,22 @@ productFlavors {
 
 `implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion")`
 
-4 - Copy bridge folder to your project
+4. Copy bridge folder to your project
+
 Drag and drop bridge package from the demo project to your own
+
 ![Android files](./documentation/android-files.jpg)
 
-Replace the module name with your own. Ex: `com.awesomeproject`
+Replace the module name with your own. Ex: `com.projectname`
+
 ![Android files replace 1](./documentation/android-files-replace-1.jpg)
+
 ![Android files replace 2](./documentation/android-files-replace-2.jpg)
 
-5 - MainApplication
+5. MainApplication
 
 If your MainApplication is written in Java we need to convert it to Kotlin
+
 ![Android MainApplication 1](./documentation/android-mainapplication-1.jpg)
 
 ![Android MainApplication 2](./documentation/android-mainapplication-2.jpg)
@@ -193,6 +204,7 @@ If your MainApplication is written in Java we need to convert it to Kotlin
         return packages
     }
 ```
+
 ![Android MainApplication 3](./documentation/android-mainapplication-3.jpg)
 ```
     startAppKoin()
@@ -211,23 +223,32 @@ If your MainApplication is written in Java we need to convert it to Kotlin
     }
 ```
 
-6 - Card Image
+6. Card Image
 Add card image to Android `assets` folder
+
 ![Android Card Image](./documentation/android-card-image.jpg)
 
-#### Known bugs
+#### Known Android bugs
 We currently have a bug that Android App won't work if it doesn't have a Material Theme. We are working to solve it, if this is an issue for you please contact our support team mobile@pomelo.la
 ![Android Bugs](./documentation/android-bug-1.jpg)
 
 
 ### Android Authorization
 
+To initialize Pomelo Cards SDK, we need to provide an end user token. All the logic is implemented in kotlin on the Android side, you can check how to do that on Androud native SDK documentation:
+
+<https://github.com/pomelo-la/cards-android-demo#3-authorization>
+
 ### Android Theme
+To customize the Android theme you should setup your own styling. You can check how to do that on Android native SDK documentation:
+
+<https://github.com/pomelo-la/cards-android-demo#styling>
 
 # Usage
 
 ## Setup SDK
 When using the SDK you should first call the setup method from the react native side. This method must be called before launching any widget.
+
 ```
 const App = () => {
   useEffect(() => {
@@ -237,6 +258,7 @@ const App = () => {
 
 ## Card widget
 An example of how you can insert PomeloCardView on a React Native one is shown on `screens/CardWidgetScreen.js`
+
 ```
 return (
         <SafeAreaView style={styles.container}>
@@ -252,7 +274,10 @@ return (
         </SafeAreaView>
     );
 ```
-![Card Widget](./documentation/card-widget.jpg)
+
+iOS                                       |  Android                                 
+:----------------------------------------:|:----------------------------------------:
+![](./documentation/ios-card-widget.jpg)  |  ![](./documentation/android-card-widget.jpg)
 
 ## Card bottom sheet widget
 An example of how to launch card bottom sheet widget is shown on HomeScreen.js
@@ -264,7 +289,9 @@ An example of how to launch card bottom sheet widget is shown on HomeScreen.js
         .catch(e => { alert(`Show sensitive data failed with error: ${e.toString()}`) })
     }
 ```
-![Card bottom sheet widget](./documentation/card-bottom-sheet.jpg)
+iOS                                             |  Android                                 
+:----------------------------------------------:|:----------------------------------------------:
+![](./documentation/ios-card-bottom-sheet.jpg)  |  ![](./documentation/android-card-bottom-sheet.jpg)
 
 ## Activate card widget
 An example of how to launch activate card widget is shown on HomeScreen.js
@@ -276,7 +303,9 @@ An example of how to launch activate card widget is shown on HomeScreen.js
         .catch(e => { alert(`Change pin failed with error: ${e.toString()}`) })
     }
 ```
-![Card bottom sheet widget](./documentation/activate-card.jpg)
+iOS                                         |  Android                                 
+:------------------------------------------:|:------------------------------------------:
+![](./documentation/ios-activate-card.jpg)  |  ![](./documentation/android-activate-card.jpg)
 
 ## Change pin widget
 An example of how to launch change pin widget is shown on HomeScreen.js
@@ -288,4 +317,16 @@ An example of how to launch change pin widget is shown on HomeScreen.js
         .catch(e => { alert(`Change pin failed with error: ${e.toString()}`) })
     }
 ```
-![Card bottom sheet widget](./documentation/change-pin.jpg)
+iOS                                      |  Android                                 
+:---------------------------------------:|:------------------------------------------:
+![](./documentation/ios-change-pin.jpg)  |  ![](./documentation/android-change-pin.jpg)
+
+# Roadmap
+
+We know that currently configuring Pomelo´s SDKs on React Native involves a couple of steps and we would like to improve the experience. We have a couple of goals on track and we would like to listen to your feedback to improve the experience. Please write to mobile@pomelo.la for any suggestion.
+
+- [ ] Setup card images on React Native side.
+- [ ] Setup end user token on React Native side.
+- [ ] Setup mobile theme from the dashboard.
+- [ ] Create a npm package that wrappes both sdks. The dependency will be installed using `npm install react-native-pomelo-cards` and we won't need to touch any native code 🥳🥳🥳
+
