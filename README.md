@@ -72,34 +72,6 @@ You must add the imports from the demo project on your Bridging-Header.h so Obje
 
 ## Setup Android
 
-# Configuration
-
-## iOS Configuration
-
-```
-  @objc func setupSDK(_ email: String) {
-    //Configure Cards SDK
-    PomeloCards.initialize(with: PomeloCardsConfiguration(environment: .staging))
-    //Configure authorization service on PomeloNetworking
-    PomeloNetworkConfigurator.shared.configure(authorizationService: EndUserTokenAuthorizationService(email: email))
-    guaranteeMainThread {
-      //Configure theme on PomeloUI
-      PomeloUIGateway.shared.configure(theme: PomeloTheme())
-    }
-  }
-```
-### iOS Authorization
-To initialize Pomelo Cards SDK, we need to provide an end user token. All the logic is implemented in swift on the iOS side, you can check how to do that on iOS native SDK documentation:
-
-<https://github.com/pomelo-la/cards-ios/tree/feature/documentation#3-authorization>
-
-### iOS Theme
-To customize the iOS theme you should setup your own theme. You can check how to do that on iOS native SDK documentation:
-
-<https://github.com/pomelo-la/cards-ios/tree/feature/documentation#customizing>
-
-## Android Configuration
-
 You need to import Pomelo Native Android dependency:
 
 https://github.com/pomelo-la/cards-android-demo#1-import-dependency
@@ -232,6 +204,48 @@ Add card image to Android `assets` folder
 We currently have a bug that Android App won't work if it doesn't have a Material Theme. We are working to solve it, if this is an issue for you please contact our support team mobile@pomelo.la
 ![Android Bugs](./documentation/android-bug-1.jpg)
 
+# Configuration
+
+## iOS Configuration
+
+When you call the setup method from React Native under the hood iOS is setting the environment, the authorization service and the theme.
+
+```
+  @objc func setupSDK(_ email: String) {
+    //Configure Cards SDK
+    PomeloCards.initialize(with: PomeloCardsConfiguration(environment: .staging))
+    //Configure authorization service on PomeloNetworking
+    PomeloNetworkConfigurator.shared.configure(authorizationService: EndUserTokenAuthorizationService(email: email))
+    guaranteeMainThread {
+      //Configure theme on PomeloUI
+      PomeloUIGateway.shared.configure(theme: PomeloTheme())
+    }
+  }
+```
+
+### iOS Authorization
+To initialize Pomelo Cards SDK, we need to provide an end user token. All the logic is implemented in swift on the iOS side, you can check how to do that on iOS native SDK documentation:
+
+<https://github.com/pomelo-la/cards-ios/tree/feature/documentation#3-authorization>
+
+### iOS Theme
+To customize the iOS theme you should setup your own theme. You can check how to do that on iOS native SDK documentation:
+
+<https://github.com/pomelo-la/cards-ios/tree/feature/documentation#customizing>
+
+## Android Configuration
+
+When you call the setup method from React Native under the hood iOS is setting the authorization service.
+
+```
+@ReactMethod
+fun setupSDK(email: String) {
+    val configuration = Configuration {
+        userTokenRepository.getUserToken(UserTokenBody(email))
+    }
+    PomeloCards.register(configuration, reactContext.applicationContext)
+}
+```
 
 ### Android Authorization
 
@@ -323,10 +337,10 @@ iOS                                      |  Android
 
 # Roadmap
 
-We know that currently configuring Pomelo´s SDKs on React Native involves a couple of steps and we would like to improve the experience. We have a couple of goals on track and we would like to listen to your feedback to improve the experience. Please write to mobile@pomelo.la for any suggestion.
+We know that currently configuring Pomelo´s SDKs on React Native involves a couple of steps and we would like to improve the experience. We have a couple of goals on track and we would like to listen to your feedback to improve the experience. Please write to mobile@pomelo.la for any suggestions.
 
 - [ ] Setup card images on React Native side.
 - [ ] Setup end user token on React Native side.
 - [ ] Setup mobile theme from the dashboard.
-- [ ] Create a npm package that wrappes both sdks. The dependency will be installed using `npm install react-native-pomelo-cards` and we won't need to touch any native code 🥳🥳🥳
+- [ ] Create a npm package that wrappes both sdks. The dependency will be installed using `npm install react-native-pomelo-cards` and you won't need to edit any native code 🥳🥳🥳
 
