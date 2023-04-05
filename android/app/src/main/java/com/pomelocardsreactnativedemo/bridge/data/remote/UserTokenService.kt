@@ -1,7 +1,7 @@
-package com.pomelocardsreactnativedemo.data.remote
+package com.pomelocardsreactnativedemo.bridge.data.remote
 
-import com.pomelocardsreactnativedemo.data.entities.UserTokenBody
-import com.pomelocardsreactnativedemo.data.entities.UserTokenResponse
+import com.pomelocardsreactnativedemo.bridge.data.entities.UserTokenBody
+import com.pomelocardsreactnativedemo.bridge.data.entities.UserTokenResponse
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.POST

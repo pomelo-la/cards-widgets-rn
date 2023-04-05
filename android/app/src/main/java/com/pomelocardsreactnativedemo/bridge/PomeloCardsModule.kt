@@ -1,4 +1,4 @@
-package com.pomelocardsreactnativedemo
+package com.pomelocardsreactnativedemo.bridge
 
 import androidx.appcompat.app.AppCompatActivity
 import com.facebook.react.bridge.*
@@ -6,10 +6,10 @@ import com.pomelo.cards.widgets.CardsResult
 import com.pomelo.cards.widgets.Configuration
 import com.pomelo.cards.widgets.PomeloCards
 import com.pomelo.cards.widgets.ui.card.bottomsheet.PomeloCardBottomSheet
-import com.pomelocardsreactnativedemo.data.entities.UserTokenBody
-import com.pomelocardsreactnativedemo.data.repositories.UserTokenRepository
-import com.pomelocardsreactnativedemo.ui.ActivateCardDialog
-import com.pomelocardsreactnativedemo.ui.ChangePinDialog
+import com.pomelocardsreactnativedemo.bridge.data.entities.UserTokenBody
+import com.pomelocardsreactnativedemo.bridge.data.repositories.UserTokenRepository
+import com.pomelocardsreactnativedemo.bridge.ui.ActivateCardDialog
+import com.pomelocardsreactnativedemo.bridge.ui.ChangePinDialog
 
 
 class PomeloCardsModule(val reactContext: ReactApplicationContext, val userTokenRepository: UserTokenRepository) : ReactContextBaseJavaModule(reactContext) {

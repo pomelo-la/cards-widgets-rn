@@ -1,9 +1,9 @@
-package com.pomelocardsreactnativedemo.data.repositories
+package com.pomelocardsreactnativedemo.bridge.data.repositories
 
 import com.pomelo.networking.resource.Resource
 import com.pomelo.networking.utils.safeApiCall
-import com.pomelocardsreactnativedemo.data.entities.UserTokenBody
-import com.pomelocardsreactnativedemo.data.remote.UserTokenService
+import com.pomelocardsreactnativedemo.bridge.data.entities.UserTokenBody
+import com.pomelocardsreactnativedemo.bridge.data.remote.UserTokenService
 
 class UserTokenRepository(private val service: UserTokenService) {
 

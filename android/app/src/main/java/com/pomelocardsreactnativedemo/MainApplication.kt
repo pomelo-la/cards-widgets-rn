@@ -8,10 +8,10 @@ import com.facebook.react.defaults.DefaultReactNativeHost
 import com.facebook.react.ReactPackage
 import com.facebook.react.PackageList
 import com.facebook.soloader.SoLoader
-import com.pomelocardsreactnativedemo.data.repositories.UserTokenRepository
-import com.pomelocardsreactnativedemo.di.MainModule
+import com.pomelocardsreactnativedemo.bridge.PomeloCardsPackage
+import com.pomelocardsreactnativedemo.bridge.data.repositories.UserTokenRepository
+import com.pomelocardsreactnativedemo.bridge.di.MainModule
 import org.koin.android.ext.android.get
-import org.koin.android.ext.android.inject
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.GlobalContext
@@ -28,8 +28,6 @@ class MainApplication : Application(), ReactApplication {
 
         override fun getPackages(): List<ReactPackage> {
             val packages: MutableList<ReactPackage> = PackageList(this).packages
-
-            // Packages that cannot be autolinked yet can be added manually here, for example:
             packages.add(PomeloCardsPackage(userTokenRepository))
             return packages
         }

@@ -116,8 +116,6 @@ android {
     productFlavors {
         stage {
             dimension = "default"
-            buildConfigField("String", "CARD_ID", '"crd-2KuidxIWWOTNbBHg9c5tRFf672m"')
-            buildConfigField("String", "EMAIL", '"abel@pomelo.la"')
             buildConfigField("String", "API_BASE_URL", '"https://api-stage.pomelo.la/cards-sdk-be-sample/"')
         }
     }

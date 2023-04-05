@@ -1,4 +1,4 @@
-package com.pomelocardsreactnativedemo
+package com.pomelocardsreactnativedemo.bridge
 
 
 import android.util.Log
