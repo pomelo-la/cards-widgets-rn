@@ -6,13 +6,13 @@
  */
 import React, { useEffect } from 'react';
 import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {createStackNavigator} from '@react-navigation/stack';
 import HomeScreen from './screens/HomeScreen';
 import CardWidgetScreen from './screens/CardWidgetScreen';
 import NativePomeloCardsModule from './pomelo_native_modules/PomeloCardsModule';
 import * as constants from './screens/constants'
 
-const Stack = createNativeStackNavigator();
+const Stack = createStackNavigator();
 
 const App = () => {
   useEffect(() => {
