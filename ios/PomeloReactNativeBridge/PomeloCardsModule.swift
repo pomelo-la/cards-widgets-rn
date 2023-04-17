@@ -7,8 +7,6 @@
 
 import Foundation
 import UIKit
-import PomeloUI
-import PomeloNetworking
 import PomeloCards
 
 @objc(PomeloCardsModule)
@@ -19,12 +17,12 @@ class PomeloCardsModule: NSObject {
   /// - Parameter email: User's email
   @objc func setupSDK(_ email: String) {
     //Configure Cards SDK
-    PomeloCards.initialize(with: PomeloCardsConfiguration(environment: .staging))
+    PomeloCardsSDK.initialize(with: PomeloCardsConfiguration(environment: .staging))
     //Configure authorization service on PomeloNetworking
-    PomeloNetworkConfigurator.shared.configure(authorizationService: EndUserTokenAuthorizationService(email: email))
+    PomeloCardsSDK.setupAuthorizationService(EndUserTokenAuthorizationService(email: email))
     guaranteeMainThread {
       //Configure theme on PomeloUI
-      PomeloUIGateway.shared.configure(theme: PomeloTheme())
+      PomeloCardsSDK.setupTheme(PomeloCardsTheme())
     }
   }
   
